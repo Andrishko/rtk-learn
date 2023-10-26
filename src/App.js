@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import RootLayout from './components/RootLayout';
+import PostsList from './components/PostsList';
+import Feed from './components/Feed';
+import SinglePostPage from './components/SinglePostPage';
+import EditPostForm from './components/EditPostForm';
 
 function App() {
+
+  const router = createBrowserRouter(createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Feed />} />
+      <Route exact path="/post/add/:postId" element={<SinglePostPage />} />
+      <Route exact path="/post/change/:postId" element={<EditPostForm />} />
+    </Route>
+  ))
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{margin: '50px 200px'}}>
+      <RouterProvider router={router} />
     </div>
   );
 }
